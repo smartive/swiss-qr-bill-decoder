@@ -1,0 +1,14 @@
+[package]
+name = "post-barcode-decoder"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+strip = "symbols"
+panic = "abort"
+
+[dependencies]
+rqrr = "0.7.1"
+image = "0.25.1"
