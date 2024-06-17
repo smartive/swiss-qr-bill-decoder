@@ -5,6 +5,6 @@ use clap::Parser;
 #[command(version, about, long_about = None)]
 pub struct Args {
     /// The file to read (pdf or png)
-    #[arg(short, long)]
+    #[arg(index = 1)]
     pub(crate) input: String,
 }
