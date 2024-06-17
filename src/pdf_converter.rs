@@ -1,6 +1,6 @@
 use image::DynamicImage;
-use std::process::{Command};
 use std::path::Path;
+use std::process::Command;
 
 pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
     // use ghostscript to convert the PDF to a PNG
@@ -15,9 +15,9 @@ pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
 }
 
 fn gs_command<P, Q>(in_path: P, tmp_path: Q)
-    where
-        P: AsRef<Path>,
-        Q: AsRef<Path>,
+where
+    P: AsRef<Path>,
+    Q: AsRef<Path>,
 {
     Command::new("gs")
         .args(&[
@@ -31,7 +31,7 @@ fn gs_command<P, Q>(in_path: P, tmp_path: Q)
             &format!(
                 "-sOutputFile={}/%03d.png",
                 tmp_path.as_ref().to_string_lossy()
-            )
+            ),
         ])
         .arg(in_path.as_ref())
         .output()

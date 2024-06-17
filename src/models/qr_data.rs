@@ -1,5 +1,5 @@
-use serde::Serialize;
 use crate::models::address::Address;
+use serde::Serialize;
 
 #[derive(Serialize)]
 pub struct QRData {
@@ -14,14 +14,16 @@ pub struct QRData {
 }
 
 impl QRData {
-    pub(crate) fn new(iban: String,
-                      recipient_address: Address,
-                      sender_address: Option<Address>,
-                      amount: Option<String>,
-                      currency: String,
-                      reference_type: String,
-                      reference: Option<String>,
-                      message: Option<String>) -> Self {
+    pub(crate) fn new(
+        iban: String,
+        recipient_address: Address,
+        sender_address: Option<Address>,
+        amount: Option<String>,
+        currency: String,
+        reference_type: String,
+        reference: Option<String>,
+        message: Option<String>,
+    ) -> Self {
         Self {
             iban,
             recipient_address,

@@ -754,7 +754,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "post-barcode-decoder"
+name = "post-qr-decoder"
 version = "0.1.0"
 dependencies = [
  "clap",
