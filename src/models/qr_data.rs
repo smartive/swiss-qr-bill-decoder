@@ -1,6 +1,7 @@
+use serde::Serialize;
 use crate::models::address::Address;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct QRData {
     iban: String,
     recipient_address: Address,

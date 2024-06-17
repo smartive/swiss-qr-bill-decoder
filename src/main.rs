@@ -30,8 +30,9 @@ fn main() {
     }
 
     // print the QR code data
-    for qr_data in &all_qr_codes {
-        println!("{:?}", qr_data);
-    }
-    
+    if args.pretty {
+        serde_json::to_writer_pretty(std::io::stdout(), &all_qr_codes)
+    } else {
+        serde_json::to_writer(std::io::stdout(), &all_qr_codes)
+    }.expect("Error writing JSON");
 }

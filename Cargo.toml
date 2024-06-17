@@ -13,3 +13,5 @@ rqrr = "0.7.1"
 image = "0.25.1"
 clap = { version = "4.5.7", features = ["derive"] }
 tempfile = "3.10.1"
+serde_json = "1.0.117"
+serde = { version = "1.0.203", features = ["derive"] }
