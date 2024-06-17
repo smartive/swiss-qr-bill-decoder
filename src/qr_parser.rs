@@ -2,9 +2,10 @@ use crate::models::address::Address;
 use crate::models::qr_data::QRData;
 
 pub fn get_qr_code_data(text: &String) -> QRData {
-    for (i, line) in text.lines().enumerate() {
-        println!("[{i}] {line}");
-    }
+    //TODO: remove
+    // for (i, line) in text.lines().enumerate() {
+    //     println!("[{i}] {line}");
+    // }
 
     let mut lines = text.lines();
     assert_eq!(lines.next(), Some("SPC"), "First line is not 'SPC'");

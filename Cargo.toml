@@ -7,8 +7,9 @@ edition = "2021"
 codegen-units = 1
 lto = "fat"
 strip = "symbols"
-panic = "abort"
 
 [dependencies]
 rqrr = "0.7.1"
 image = "0.25.1"
+clap = { version = "4.5.7", features = ["derive"] }
+tempfile = "3.10.1"
