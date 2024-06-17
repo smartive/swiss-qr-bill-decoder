@@ -11,4 +11,8 @@ pub struct Args {
     /// Pretty print the JSON output
     #[arg(short, long, default_value = "false")]
     pub(crate) pretty: bool,
+
+    /// If true, the program will exit with an error code if any QR code could not be read
+    #[arg(short, long, default_value = "false")]
+    pub(crate) fail_on_error: bool,
 }
