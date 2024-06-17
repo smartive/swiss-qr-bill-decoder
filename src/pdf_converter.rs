@@ -4,7 +4,7 @@ use std::process::Command;
 
 pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
     // use ghostscript to convert the PDF to a PNG
-    gs_command(file_input, tmp_dir);
+    pdf_to_png(file_input, tmp_dir);
 
     // read images from temp directory
     (1..)
@@ -14,7 +14,7 @@ pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
         .collect()
 }
 
-fn gs_command<P, Q>(in_path: P, tmp_path: Q)
+fn pdf_to_png<P, Q>(in_path: P, tmp_path: Q)
 where
     P: AsRef<Path>,
     Q: AsRef<Path>,

@@ -33,7 +33,6 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     }
 
     let amount = lines.next().expect("Missing amount").trim();
-
     let currency = lines.next().expect("Missing currency");
     assert!(
         currency.eq("CHF") || currency.eq("EUR"),
