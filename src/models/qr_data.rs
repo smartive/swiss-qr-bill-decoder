@@ -6,22 +6,22 @@ pub struct QRData {
     iban: String,
     recipient_address: Address,
     sender_address: Option<Address>,
-    amount: String,
+    amount: Option<String>,
     currency: String,
     reference_type: String,
-    reference: String,
-    message: String,
+    reference: Option<String>,
+    message: Option<String>,
 }
 
 impl QRData {
     pub(crate) fn new(iban: String,
                       recipient_address: Address,
                       sender_address: Option<Address>,
-                      amount: String,
+                      amount: Option<String>,
                       currency: String,
                       reference_type: String,
-                      reference: String,
-                      message: String) -> Self {
+                      reference: Option<String>,
+                      message: Option<String>) -> Self {
         Self {
             iban,
             recipient_address,

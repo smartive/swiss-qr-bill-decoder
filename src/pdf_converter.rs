@@ -4,34 +4,23 @@ use std::path::Path;
 
 pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
     // use ghostscript to convert the PDF to a PNG
-    gs_command(file_input, tmp_dir)
-        .output()
-        .expect("Error running Ghostscript. Is 'gs' installed?");
+    gs_command(file_input, tmp_dir);
 
     // read images from temp directory
-    let mut images = Vec::new();
-    for i in 1.. {
-        
-        // let path = format!("{}/{:03}.png", tmp_dir.path(), i);
-        let path = tmp_dir.join(format!("{:03}.png", i));
-        if !Path::new(&path).exists() {
-            break;
-        }
-        images.push(image::open(&path)
-            .expect("Error loading image"));
-    }
-    
-    return images;
+    (1..)
+        .map(|i| tmp_dir.join(format!("{:03}.png", i)))
+        .take_while(|path| path.exists())
+        .map(|path| image::open(&path).expect("Error loading image"))
+        .collect()
 }
 
-fn gs_command<P, Q>(in_path: P, tmp_path: Q) -> Command
+fn gs_command<P, Q>(in_path: P, tmp_path: Q)
     where
         P: AsRef<Path>,
         Q: AsRef<Path>,
 {
-    let mut cmd = Command::new("gs");
-    cmd.args(
-        [
+    Command::new("gs")
+        .args(&[
             "-q",
             "-dBATCH",
             "-dSAFER",
@@ -39,14 +28,12 @@ fn gs_command<P, Q>(in_path: P, tmp_path: Q) -> Command
             "-dFILTERTEXT",
             "-r300",
             "-sDEVICE=pngmono",
-            format!(
+            &format!(
                 "-sOutputFile={}/%03d.png",
-                tmp_path.as_ref().to_string_lossy().to_string()
-            ).as_str(),
-        ]
-            .iter(),
-    )
-        .arg(in_path.as_ref().to_string_lossy().to_string())
-        .arg(tmp_path.as_ref().to_string_lossy().to_string());
-    cmd
+                tmp_path.as_ref().to_string_lossy()
+            )
+        ])
+        .arg(in_path.as_ref())
+        .output()
+        .expect("Error running Ghostscript. Is 'gs' installed?");
 }

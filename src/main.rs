@@ -13,7 +13,7 @@ fn main() {
     let file_path = args.input;
     
     let tmp_dir = tempdir().expect("Error creating temporary directory");
-    let img = match file_path.as_str() {
+    let images = match file_path.as_str() {
         input if input.ends_with(".pdf") => pdf_converter::convert_to_png(&file_path, &tmp_dir.path()),
         input if input.ends_with(".png") => vec!(image::open(&file_path)
             .expect("Error loading image")),
@@ -21,7 +21,7 @@ fn main() {
     };
 
     let mut all_qr_codes = Vec::new();
-    for img in img {
+    for img in images {
         let mut img = PreparedImage::prepare(img.to_luma8());
         img.detect_grids().into_iter()
             .filter_map(|result| result.decode().ok())

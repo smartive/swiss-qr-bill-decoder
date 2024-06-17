@@ -30,7 +30,7 @@ pub fn get_qr_code_data(text: &String) -> QRData {
         let _ = lines.next();
     }
 
-    let amount = lines.next().expect("Missing amount");
+    let amount = lines.next().expect("Missing amount").trim();
 
     let currency = lines.next().expect("Missing currency");
     assert!(currency.eq("CHF") || currency.eq("EUR"), "Only CHF and EUR currencies are supported");
@@ -57,24 +57,23 @@ pub fn get_qr_code_data(text: &String) -> QRData {
     let reference_type = lines.next().expect("Missing reference type");
     assert!(reference_type.eq("NON") || reference_type.eq("QRR") || reference_type.eq("SCOR"), "Only reference types NON, QRR and SCOR are supported");
 
-    let reference = lines.next().expect("Missing reference");
+    let reference = lines.next().expect("Missing reference").trim();
     if reference_type.eq("QRR") || reference_type.eq("SCOR") {
         assert!(!reference.is_empty(), "Reference is empty");
     }
 
-    let message = lines.next().expect("Missing message");
+    let message = lines.next().expect("Missing message").trim();
 
     assert_eq!(lines.next(), Some("EPD"), "Missing trailing 'EPD'");
 
-    let qr_data = QRData::new(
+    QRData::new(
         iban.to_string(),
         recipient_address,
         sender_address,
-        amount.to_string(),
+        if amount.is_empty() { None } else { Some(amount.to_string()) },
         currency.to_string(),
         reference_type.to_string(),
-        reference.to_string(),
-        message.to_string(),
-    );
-    qr_data
+        if reference.is_empty() { None } else { Some(reference.to_string()) },
+        if message.is_empty() { None } else { Some(message.to_string()) },
+    )
 }
