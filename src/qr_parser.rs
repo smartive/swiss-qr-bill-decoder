@@ -1,3 +1,4 @@
+use std::str::Lines;
 use crate::models::address::Address;
 use crate::models::qr_data::QRData;
 
@@ -22,20 +23,15 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
         _ => return Err("Only CH and LI IBANs are supported".to_string()),
     };
 
-    let recipient_address = Address::new(
-        lines.next(),
-        lines.next(),
-        lines.next(),
-        lines.next(),
-        lines.next(),
-        lines.next(),
-        lines.next(),
-    )?;
+    let address_type = match lines.next() {
+        Some(address_type) if address_type.is_empty() => return Err("Recipient address type is empty".to_string()),
+        Some(address_type) => address_type,
+        _ => return Err("Missing recipient address type".to_string()),
+    };
 
-    // skip 7 lines
-    for _ in 0..7 {
-        let _ = lines.next();
-    }
+    let recipient_address = to_address(&mut lines, address_type)?;
+    
+    skip_lines(&mut lines, 7);
 
     let amount = match lines.next() {
         Some(amount) if amount.is_empty() => None,
@@ -56,20 +52,9 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     };
 
     let sender_address = if address_type.is_some() {
-        Some(Address::new(
-            Some(address_type.unwrap()),
-            lines.next(),
-            lines.next(),
-            lines.next(),
-            lines.next(),
-            lines.next(),
-            lines.next(),
-        )?)
+        Some(to_address(&mut lines, address_type.unwrap())?)
     } else {
-        // skip 7 lines
-        for _ in 0..6 {
-            let _ = lines.next();
-        }
+        skip_lines(&mut lines, 6);
         None
     };
 
@@ -106,4 +91,22 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
         reference,
         message,
     ))
+}
+
+fn skip_lines(lines: &mut Lines, skip_lines: i32) {
+    for _ in 0..skip_lines {
+        let _ = lines.next();
+    }
+}
+
+fn to_address(lines: &mut Lines, address_type: &str) -> Result<Address, String> {
+    Address::new(
+        Some(address_type),
+        lines.next(),
+        lines.next(),
+        lines.next(),
+        lines.next(),
+        lines.next(),
+        lines.next(),
+    )
 }
