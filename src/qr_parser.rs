@@ -4,21 +4,16 @@ use crate::models::qr_data::QRData;
 pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     let mut lines = text.lines();
 
-    lines.next().ok_or("Missing first line".to_string())?;
-    
-    match lines.next() {
-        Some("SPC") => {}
-        _ => return Err("First line is not 'SPC'".to_string()),
+    if lines.next() != Some("SPC") {
+        return Err("First line is not 'SPC'".to_string());
     }
 
-    match lines.next() {
-        Some("0200") => {}
-        _ => return Err("Only version 0200 is supported".to_string()),
+    if lines.next() != Some("0200") {
+        return Err("Only version 0200 is supported".to_string());
     }
 
-    match lines.next() {
-        Some("1") => {}
-        _ => return Err("Only coding type 1 (UTF-8) is supported".to_string()),
+    if lines.next() != Some("1") {
+        return Err("Only coding type 1 (UTF-8) is supported".to_string());
     }
 
     let iban = match lines.next() {
@@ -97,9 +92,8 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
         _ => return Err("Missing message".to_string()),
     };
 
-    match lines.next() {
-        Some("EPD") => {}
-        _ => return Err("Missing trailing 'EPD'".to_string()),
+    if lines.next() != Some("EPD") {
+        return Err("Missing trailing 'EPD'".to_string());
     }
 
     Ok(QRData::new(

@@ -8,11 +8,11 @@ pub struct Args {
     #[arg(index = 1)]
     pub(crate) input: String,
 
-    /// Pretty print the JSON output
-    #[arg(short, long, default_value = "false")]
+    /// Pretty print the JSON output (default: false)
+    #[arg(short, long, default_value_t = false)]
     pub(crate) pretty: bool,
 
-    /// If true, the program will exit with an error code if any QR code could not be read
-    #[arg(short, long, default_value = "false")]
+    /// If true, the program will exit with an error code if any QR code could not be read (default: false)
+    #[arg(short, long, default_value_t = false)]
     pub(crate) fail_on_error: bool,
 }
