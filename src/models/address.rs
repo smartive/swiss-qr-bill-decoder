@@ -1,6 +1,7 @@
 use serde::Serialize;
 
 #[derive(Serialize)]
+#[cfg_attr(test, derive(PartialEq, Debug))]
 pub struct Address {
     address_type: String,
     name: String,
