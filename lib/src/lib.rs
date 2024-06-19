@@ -4,8 +4,7 @@
 //!
 //! See [the standard definition](https://www.six-group.com/de/products-services/banking-services/payment-standardization/standards/qr-bill.html#ig-qr-bill-v2.3)
 
-use crate::models::args;
-use clap::Parser;
+use crate::models::qr_data::QRData;
 use image;
 use rqrr::PreparedImage;
 use tempfile::tempdir;
@@ -14,10 +13,7 @@ mod models;
 mod pdf_converter;
 mod qr_parser;
 
-fn main() {
-    let args = args::Args::parse();
-    let file_path = args.input;
-
+pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
     let tmp_dir = tempdir().expect("Error creating temporary directory");
     let images = match file_path.as_str() {
         input if input.ends_with(".pdf") => {
@@ -40,7 +36,7 @@ fn main() {
     }
 
     // check if there were any errors
-    if args.fail_on_error && all_qr_codes.iter().any(|result| result.is_err()) {
+    if fail_on_error && all_qr_codes.iter().any(|result| result.is_err()) {
         eprintln!("Error parsing QR codes");
 
         // print the errors
@@ -59,11 +55,5 @@ fn main() {
         .map(|result| result.unwrap())
         .collect();
 
-    // send the QR code data to stdout
-    if args.pretty {
-        serde_json::to_writer_pretty(std::io::stdout(), &all_qr_codes)
-    } else {
-        serde_json::to_writer(std::io::stdout(), &all_qr_codes)
-    }
-    .expect("Error writing JSON");
+    return all_qr_codes;
 }

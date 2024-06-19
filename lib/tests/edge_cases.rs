@@ -12,7 +12,9 @@ fn version_long_output() {
         .arg("--version")
         .assert()
         .success()
-        .stdout(predicates::str::contains(format!("{PKG_NAME} {PKG_VERSION}")));
+        .stdout(predicates::str::contains(format!(
+            "{PKG_NAME} {PKG_VERSION}"
+        )));
 }
 
 #[test]
@@ -22,7 +24,9 @@ fn version_short_output() {
         .arg("-V")
         .assert()
         .success()
-        .stdout(predicates::str::contains(format!("{PKG_NAME} {PKG_VERSION}")));
+        .stdout(predicates::str::contains(format!(
+            "{PKG_NAME} {PKG_VERSION}"
+        )));
 }
 
 #[test]
@@ -43,7 +47,6 @@ fn minimal_png() {
         "reference": null,
         "message": null
     }]);
-
 
     Command::cargo_bin(PKG_NAME)
         .unwrap()
@@ -371,4 +374,3 @@ fn none_pdf() {
             true
         }));
 }
-
