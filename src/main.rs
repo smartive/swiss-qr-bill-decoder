@@ -1,3 +1,9 @@
+//! # Simple program to read swiss invoices QR codes as pdf or png files and the relevant data
+//!
+//! This program reads QR codes from Swiss invoices and outputs the relevant data as JSON.
+//!
+//! See [the standard definition](https://www.six-group.com/de/products-services/banking-services/payment-standardization/standards/qr-bill.html#ig-qr-bill-v2.3)
+
 use crate::models::args;
 use clap::Parser;
 use image;

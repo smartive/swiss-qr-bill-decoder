@@ -2,6 +2,7 @@ use image::DynamicImage;
 use std::path::Path;
 use std::process::Command;
 
+/// Convert a PDF file to a vector of PNG images
 pub fn convert_to_png(file_input: &str, tmp_dir: &Path) -> Vec<DynamicImage> {
     // use ghostscript to convert the PDF to a PNG
     pdf_to_png(file_input, tmp_dir);

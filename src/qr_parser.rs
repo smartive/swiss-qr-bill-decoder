@@ -2,6 +2,7 @@ use crate::models::address::Address;
 use crate::models::qr_data::QRData;
 use std::str::Lines;
 
+/// Get the QR code data from a String according to the Swiss QR bill standard
 pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     let mut lines = text.lines();
 
