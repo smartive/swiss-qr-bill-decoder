@@ -1187,6 +1187,7 @@ name = "swiss-qr-bill-decoder-lib"
 version = "0.1.0"
 dependencies = [
  "image",
+ "indoc",
  "rqrr",
  "serde",
  "serde_json",

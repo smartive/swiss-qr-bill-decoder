@@ -9,7 +9,7 @@ use image;
 use rqrr::PreparedImage;
 use tempfile::tempdir;
 
-mod models;
+pub mod models;
 mod pdf_converter;
 mod qr_parser;
 

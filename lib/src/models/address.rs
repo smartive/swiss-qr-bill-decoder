@@ -1,7 +1,6 @@
 use serde::Serialize;
 
-#[derive(Serialize)]
-#[cfg_attr(test, derive(PartialEq, Debug))]
+#[derive(Serialize, Debug, PartialEq)]
 pub struct Address {
     address_type: String,
     name: String,
@@ -11,7 +10,7 @@ pub struct Address {
 }
 
 impl Address {
-    pub(crate) fn new(
+    pub fn new(
         address_type: String,
         name: String,
         address_line_1: String,
