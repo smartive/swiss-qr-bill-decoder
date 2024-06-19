@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 authors = ["Mike Schmid <mike@smartive.ch>"]
-description = "A simple tool to decode GR codes of swiss invoices"
+description = "A simple tool to decode GR codes of swiss qr bills"
 
 [lints.rust]
 unsafe_code = "forbid"
