@@ -1,5 +1,3 @@
-#![forbid(unsafe_code)]
-
 use crate::models::args;
 use clap::Parser;
 use image;
