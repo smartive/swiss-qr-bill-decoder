@@ -1176,26 +1176,17 @@ dependencies = [
  "assert-json-diff",
  "assert_cmd",
  "clap",
- "image",
  "indoc",
  "predicates",
- "rqrr",
- "serde",
  "serde_json",
  "swiss-qr-bill-decoder-lib",
- "tempfile",
 ]
 
 [[package]]
 name = "swiss-qr-bill-decoder-lib"
 version = "0.1.0"
 dependencies = [
- "assert-json-diff",
- "assert_cmd",
- "clap",
  "image",
- "indoc",
- "predicates",
  "rqrr",
  "serde",
  "serde_json",
