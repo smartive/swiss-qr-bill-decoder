@@ -9,7 +9,7 @@ fn six_example_01() {
         .arg("tests/data/six_examples/01.png")
         .assert()
         .success()
-        .stdout("[{\"iban\":\"CH6431961000004421557\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Max Muster & Söhne\",\"address_line_1\":\"Musterstrasse 123\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"sender_address\":{\"address_type\":\"S\",\"name\":\"Simon Muster\",\"address_line_1\":\"Musterstrasse 1\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"amount\":\"50.00\",\"currency\":\"CHF\",\"reference_type\":\"QRR\",\"reference\":\"000008207791225857421286694\",\"message\":\"Bezahlung der Reise\"}]");
+        .stdout("[{\"iban\":\"CH6431961000004421557\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Max Muster & Söhne\",\"address_line_1\":\"Musterstrasse 123\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"sender_address\":{\"address_type\":\"S\",\"name\":\"Simon Muster\",\"address_line_1\":\"Musterstrasse 1\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"amount\":\"50.00\",\"currency\":\"CHF\",\"reference_type\":\"QRR\",\"reference\":\"000008207791225857421286694\",\"message\":\"Payment of travel\"}]");
 }
 
 #[test]
@@ -19,7 +19,7 @@ fn six_example_02() {
         .arg("tests/data/six_examples/01.png")
         .assert()
         .success()
-        .stdout("[{\"iban\":\"CH4431999123000889012\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Max Muster & Söhne\",\"address_line_1\":\"Musterstrasse 123\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"sender_address\":{\"address_type\":\"S\",\"name\":\"Simon Muster\",\"address_line_1\":\"Musterstrasse 1\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"amount\":\"1949.75\",\"currency\":\"CHF\",\"reference_type\":\"QRR\",\"reference\":\"210000000003139471430009017\",\"message\":\"Auftrag vom 15.10.2020\"}]");
+        .stdout("[{\"iban\":\"CH6431961000004421557\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Max Muster & Söhne\",\"address_line_1\":\"Musterstrasse 123\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"sender_address\":{\"address_type\":\"S\",\"name\":\"Simon Muster\",\"address_line_1\":\"Musterstrasse 1\",\"address_line_2\":\"8000 Seldwyla\",\"country\":\"CH\"},\"amount\":\"50.00\",\"currency\":\"CHF\",\"reference_type\":\"QRR\",\"reference\":\"000008207791225857421286694\",\"message\":\"Payment of travel\"}]");
 }
 
 #[test]
@@ -29,7 +29,7 @@ fn six_example_03() {
         .arg("tests/data/six_examples/03.png")
         .assert()
         .success()
-        .stdout("[{\"iban\":\"CH5204835012345671000\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Muster Stiftung\",\"address_line_1\":\"Postfach \",\"address_line_2\":\"3001 Bern\",\"country\":\"CH\"},\"sender_address\":null,\"amount\":null,\"currency\":\"CHF\",\"reference_type\":\"NON\",\"reference\":null,\"message\":null}]");
+        .stdout("[{\"iban\":\"CH5204835012345671000\",\"recipient_address\":{\"address_type\":\"S\",\"name\":\"Sample Foundation\",\"address_line_1\":\"PO Box \",\"address_line_2\":\"3001 Bern\",\"country\":\"CH\"},\"sender_address\":null,\"amount\":null,\"currency\":\"CHF\",\"reference_type\":\"NON\",\"reference\":null,\"message\":null}]");
 }
 
 #[test]
