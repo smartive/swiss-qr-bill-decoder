@@ -1,5 +1,5 @@
 [package]
-name = "post-qr-decoder"
+name = "swiss-qr-bill-decoder"
 version = "0.1.0"
 edition = "2021"
 publish = false

@@ -832,22 +832,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "post-qr-decoder"
-version = "0.1.0"
-dependencies = [
- "assert-json-diff",
- "assert_cmd",
- "clap",
- "image",
- "indoc",
- "predicates",
- "rqrr",
- "serde",
- "serde_json",
- "tempfile",
-]
-
-[[package]]
 name = "ppv-lite86"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1184,6 +1168,22 @@ name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
+
+[[package]]
+name = "swiss-qr-bill-decoder"
+version = "0.1.0"
+dependencies = [
+ "assert-json-diff",
+ "assert_cmd",
+ "clap",
+ "image",
+ "indoc",
+ "predicates",
+ "rqrr",
+ "serde",
+ "serde_json",
+ "tempfile",
+]
 
 [[package]]
 name = "syn"
