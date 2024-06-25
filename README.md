@@ -3,6 +3,10 @@ This project contains a tool to decode the Swiss QR bill. It reads the QR code f
 
 It contains a lib crate that can be used as a library and a bin crate that can be used as a command line tool.
 
+
+> [!WARNING]
+> Users of this project do so at their own risk. There are no guarantees of any kind regarding the reliability, functionality, or security of this tool. The authors are not responsible for any damage or losses incurred from using this software.
+
 ## Usage
 
 ### As a library
