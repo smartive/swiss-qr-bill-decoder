@@ -1,4 +1,4 @@
-name: Rust
+name: Test
 
 on:
   push:
@@ -13,9 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: Swatinem/rust-cache@v2
-    - uses: awalsh128/cache-apt-pkgs-action@latest
+    - name: Checkout Code
+      uses: actions/checkout@v4
+    - name: Setup Rust (Cargo) Caching
+      uses: Swatinem/rust-cache@v2
+    - name: Install ghostscript
+      uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: ghostscript
         version: 1.0
