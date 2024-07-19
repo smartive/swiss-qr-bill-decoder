@@ -50,7 +50,7 @@ jobs:
       if: matrix.platform.runner == 'macos-latest'
 
     - name: Build
-      run: cargo build --verbose --locked --target ${{ matrix.platform.target }}
+      run: cargo build --locked --target ${{ matrix.platform.target }}
 
     - name: Run tests
-      run: cargo test --verbose --locked --target ${{ matrix.platform.target }}
+      run: cargo test --locked --target ${{ matrix.platform.target }}
