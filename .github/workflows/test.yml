@@ -42,11 +42,21 @@ jobs:
     - name: Rust (Cargo) Caching
       uses: Swatinem/rust-cache@v2
 
-    - name: Install ghostscript
+    - name: Install ghostscript (for linux)
       uses: awalsh128/cache-apt-pkgs-action@latest
+      if: runner.os == 'ubuntu-latest'
       with:
         packages: ghostscript
         version: 1.0
+
+    - name: Install ghostscript (for windowns)
+      uses: crazy-max/ghaction-chocolatey@v3
+      run: choco install ghostscript --yes
+      if: runner.os == 'windows-latest'
+
+    - name: Install ghostscript (for macos)
+      run: brew install ghostscript
+      if: runner.os == 'macos-latest'
 
     - name: Build
       run: cargo build --verbose --locked --target ${{ matrix.target }}
