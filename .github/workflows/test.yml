@@ -51,8 +51,10 @@ jobs:
 
     - name: Install ghostscript (for windowns)
       uses: crazy-max/ghaction-chocolatey@v3
-      run: choco install ghostscript --yes
       if: runner.os == 'windows-latest'
+      with:
+        args: install ghostscript
+
 
     - name: Install ghostscript (for macos)
       run: brew install ghostscript
