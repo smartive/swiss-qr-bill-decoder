@@ -10,9 +10,8 @@ on:
   pull_request:
     branches: [ "main" ]
 
-
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
