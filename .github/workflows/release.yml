@@ -1,4 +1,4 @@
-name: Test
+name: Release
 
 env:
   PROJECT_NAME: swiss-qr-bill-decoder
@@ -6,12 +6,12 @@ env:
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      # Regex for a version number such as v0.2.1
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  test:
+  build_and_release:
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
@@ -49,8 +49,29 @@ jobs:
       run: brew install ghostscript
       if: matrix.platform.runner == 'macos-latest'
 
-    - name: Build
-      run: cargo build --locked --target ${{ matrix.platform.target }}
-
     - name: Run tests
       run: cargo test --locked --target ${{ matrix.platform.target }}
+
+    - name: Build release
+      run: cargo build --release --locked --target ${{ matrix.platform.target }}
+
+    - name: Get the release version from the tag
+      shell: bash
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+    - name: Build archive
+      shell: bash
+      run: |
+        binary_name="${{env.PROJECT_NAME}}"
+
+        dirname="$binary_name-${{ env.VERSION }}-${{ matrix.platform.target }}"
+        mkdir "$dirname"
+        mv "target/${{ matrix.platform.target }}/release/$binary_name" "$dirname"
+        tar -czf "$dirname.tar.gz" "$dirname"
+        echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
+
+    - name: Upload the binaries
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ env.ASSET }}
