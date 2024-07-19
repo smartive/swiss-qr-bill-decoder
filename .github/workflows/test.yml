@@ -13,10 +13,10 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
-       include:
+       platform:
          - name: linux-amd64
            runner: ubuntu-latest
            target: x86_64-unknown-linux-gnu
@@ -37,31 +37,31 @@ jobs:
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
-        targets: "${{ matrix.target }}"
+        targets: "${{ matrix.platform.target }}"
 
     - name: Rust (Cargo) Caching
       uses: Swatinem/rust-cache@v2
 
     - name: Install ghostscript (for linux)
       uses: awalsh128/cache-apt-pkgs-action@latest
-      if: runner.os == 'ubuntu-latest'
+      if: matrix.platform.runner == 'ubuntu-latest'
       with:
         packages: ghostscript
         version: 1.0
 
     - name: Install ghostscript (for windowns)
       uses: crazy-max/ghaction-chocolatey@v3
-      if: runner.os == 'windows-latest'
+      if: matrix.platform.runner == 'windows-latest'
       with:
         args: install ghostscript
 
 
     - name: Install ghostscript (for macos)
       run: brew install ghostscript
-      if: runner.os == 'macos-latest'
+      if: matrix.platform.runner == 'macos-latest'
 
     - name: Build
-      run: cargo build --verbose --locked --target ${{ matrix.target }}
+      run: cargo build --verbose --locked --target ${{ matrix.platform.target }}
 
     - name: Run tests
-      run: cargo test --verbose --locked --target ${{ matrix.target }}
+      run: cargo test --verbose --locked --target ${{ matrix.platform.target }}
