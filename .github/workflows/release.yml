@@ -53,7 +53,7 @@ jobs:
       run: cargo test --locked --target ${{ matrix.platform.target }}
 
     - name: Build release
-      run: cargo build --release--locked --target ${{ matrix.platform.target }}
+      run: cargo build --release --locked --target ${{ matrix.platform.target }}
 
     - name: Get the release version from the tag
       shell: bash
