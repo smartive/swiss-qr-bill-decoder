@@ -9,12 +9,6 @@ description = "A simple library to decode QR codes of Swiss QR bills"
 [lints.rust]
 unsafe_code = "forbid"
 
-[profile.release]
-codegen-units = 1
-lto = "fat"
-strip = "symbols"
-panic = "abort"
-
 [dependencies]
 rqrr = "0.7.1"
 image = "0.25.1"
