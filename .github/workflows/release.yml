@@ -53,7 +53,10 @@ jobs:
       if: matrix.platform.runner == 'macos-latest'
 
     - name: Install ghostscript (for windows)
-      run: choco install ghostscript
+      run: |
+        choco install ghostscript --yes --no-progress
+        Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+        refreshenv
       if: matrix.platform.runner == 'windows-latest'
 
     - name: Run tests
@@ -73,9 +76,16 @@ jobs:
 
         dirname="$binary_name-${{ env.VERSION }}-${{ matrix.platform.target }}"
         mkdir "$dirname"
-        mv "target/${{ matrix.platform.target }}/release/$binary_name" "$dirname"
-        tar -czf "$dirname.tar.gz" "$dirname"
-        echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
+        
+        if [ "${{ matrix.platform.runner }}" = "windows-latest" ]; then
+          mv "target/${{ matrix.platform.target }}/release/$binary_name.exe" "$dirname"
+          7z a "$dirname.zip" "$dirname"
+          echo "ASSET=$dirname.zip" >> $GITHUB_ENV
+        else
+          mv "target/${{ matrix.platform.target }}/release/$binary_name" "$dirname"
+          tar -czf "$dirname.tar.gz" "$dirname"
+          echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
+        fi
 
     - name: Upload the binaries
       uses: softprops/action-gh-release@v2
