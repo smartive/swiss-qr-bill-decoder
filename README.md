@@ -9,10 +9,6 @@ It contains a lib crate that can be used as a library and a bin crate that can b
 
 ## Usage
 
-### As a library
-See cli/src/main.rs for an example on how to use the library.
-
-### As a command line tool
 To run the tool in debug mode, use the following command:
 ```shell
 cargo run -- <path_to_image>
