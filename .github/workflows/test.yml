@@ -53,7 +53,9 @@ jobs:
       if: matrix.platform.runner == 'macos-latest'
 
     - name: Install ghostscript (for windows)
-      run: choco install ghostscript
+      run: | 
+        choco install ghostscript --yes --no-progress
+        refreshenv
       if: matrix.platform.runner == 'windows-latest'
 
     - name: Build
