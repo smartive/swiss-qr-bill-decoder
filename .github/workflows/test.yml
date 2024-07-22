@@ -53,11 +53,13 @@ jobs:
       if: matrix.platform.runner == 'macos-latest'
 
     - name: Install ghostscript (for windows)
+      shell: bash
       run: |
         choco install ghostscript --yes --no-progress
-        Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
         refreshenv
-        tree C:/ProgramData/chocolatey/lib/Ghostscript
+        gswin64c --version;
+        echo $PATH;
+        echo %PATH%
       if: matrix.platform.runner == 'windows-latest'
 
     - name: Build
