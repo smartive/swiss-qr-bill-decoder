@@ -21,7 +21,7 @@ where
     Q: AsRef<Path>,
 {
     let command = if cfg!(target_os = "windows") {
-        "gswin64c"
+        "gswin64c.exe"
     } else {
         "gs"
     };
