@@ -1,6 +1,6 @@
-use swiss_qr_bill_decoder_lib::get_qr_bill_data;
-use swiss_qr_bill_decoder_lib::models::address::Address;
-use swiss_qr_bill_decoder_lib::models::qr_data::QRData;
+use swiss_qr_bill_decoder::get_qr_bill_data;
+use swiss_qr_bill_decoder::models::address::Address;
+use swiss_qr_bill_decoder::models::qr_data::QRData;
 
 #[test]
 fn six_example_01() {

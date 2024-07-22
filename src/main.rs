@@ -4,9 +4,10 @@
 //!
 //! See [the standard definition](https://www.six-group.com/de/products-services/banking-services/payment-standardization/standards/qr-bill.html#ig-qr-bill-v2.3)
 
+mod args;
+
 use clap::Parser;
-use swiss_qr_bill_decoder_lib::get_qr_bill_data;
- mod args;
+use swiss_qr_bill_decoder::get_qr_bill_data;
 
 fn main() {
     let args = args::Args::parse();
