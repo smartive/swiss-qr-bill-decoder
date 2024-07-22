@@ -20,7 +20,13 @@ where
     P: AsRef<Path>,
     Q: AsRef<Path>,
 {
-    Command::new("gs")
+    let command = if cfg!(target_os = "windows") {
+        "gswin64c"
+    } else {
+        "gs"
+    };
+    
+    Command::new(command)
         .args(&[
             "-q",
             "-dBATCH",
