@@ -57,7 +57,7 @@ jobs:
         choco install ghostscript --yes --no-progress
         Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
         refreshenv
-        dir C:\ProgramData\chocolatey\lib\Ghostscript
+        tree C:\ProgramData\chocolatey\lib\Ghostscript
       if: matrix.platform.runner == 'windows-latest'
 
     - name: Build
