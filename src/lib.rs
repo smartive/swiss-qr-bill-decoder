@@ -4,14 +4,14 @@
 //!
 //! See [the standard definition](https://www.six-group.com/de/products-services/banking-services/payment-standardization/standards/qr-bill.html#ig-qr-bill-v2.3)
 
+pub mod models;
+mod pdf_converter;
+mod qr_parser;
+
 use crate::models::qr_data::QRData;
 use image;
 use rqrr::PreparedImage;
 use tempfile::tempdir;
-
-pub mod models;
-mod pdf_converter;
-mod qr_parser;
 
 pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
     let tmp_dir = tempdir().expect("Error creating temporary directory");
