@@ -56,9 +56,8 @@ jobs:
       shell: bash
       run: |
         choco install ghostscript --yes --no-progress
-        refreshenv
-        gswin64c --version;
         echo $PATH;
+        gswin64c --version;
         echo %PATH%
       if: matrix.platform.runner == 'windows-latest'
 
