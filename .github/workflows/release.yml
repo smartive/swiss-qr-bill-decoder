@@ -1,66 +1,28 @@
+---
 name: Release
-
-env:
-  PROJECT_NAME: swiss-qr-bill-decoder
-  CARGO_TERM_COLOR: always
 
 on:
   push:
-    tags:
-      # Regex for a version number such as v0.2.1
-      - "v[0-9]+.[0-9]+.[0-9]+"
+    branches:
+      - main
+      - next
+      - next-major
+      - beta
+      - alpha
+      - "[0-9]+.[0-9]+.x"
+      - "[0-9]+.x"
 
 jobs:
-  build_and_release:
-    runs-on: ${{ matrix.platform.runner }}
-    strategy:
-      matrix:
-       platform:
-         - name: linux-amd64
-           runner: ubuntu-latest
-           target: x86_64-unknown-linux-gnu
-         - name: macos-amd64
-           runner: macos-latest
-           target: x86_64-apple-darwin
-         - name: macos-arm64
-           runner: macos-latest
-           target: aarch64-apple-darwin
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@stable
-      with:
-        targets: "${{ matrix.platform.target }}"
-
-    - name: Rust (Cargo) Caching
-      uses: Swatinem/rust-cache@v2
-
-    - name: Run tests
-      run: cargo test --locked --target ${{ matrix.platform.target }}
-
-    - name: Build release
-      run: cargo build --release --locked --target ${{ matrix.platform.target }}
-
-    - name: Get the release version from the tag
-      shell: bash
-      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
-    - name: Build archive
-      shell: bash
-      run: |
-        binary_name="${{env.PROJECT_NAME}}"
-
-        dirname="$binary_name-${{ env.VERSION }}-${{ matrix.platform.target }}"
-        mkdir "$dirname"
-        mv "target/${{ matrix.platform.target }}/release/$binary_name" "$dirname"
-        tar -czf "$dirname.tar.gz" "$dirname"
-        echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
-
-    - name: Upload the binaries
-      uses: softprops/action-gh-release@v2
-      with:
-        files: |
-          ${{ env.ASSET }}
+  release:
+    uses: semantic-release-action/rust/.github/workflows/release-binary.yml@v5
+    with:
+      disable-semantic-release-cargo: true
+      targets: |
+        aarch64-apple-darwin
+        aarch64-unknown-linux-gnu
+        aarch64-unknown-linux-musl
+        i686-unknown-linux-gnu
+        i686-unknown-linux-musl
+        x86_64-apple-darwin
+        x86_64-unknown-linux-gnu
+        x86_64-unknown-linux-musl
