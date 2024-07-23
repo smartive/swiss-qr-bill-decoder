@@ -12,6 +12,7 @@ jobs:
   test:
     runs-on: ${{ matrix.platform.runner }}
     strategy:
+      fail-fast: false
       matrix:
         platform:
           - target: aarch64-apple-darwin
