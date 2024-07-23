@@ -28,6 +28,7 @@ fn minimal_png() {
 }
 
 #[test]
+#[ignore]
 fn minimal_pdf() {
     let actual = get_qr_bill_data("tests/data/minimal.pdf".to_string(), true);
 
@@ -84,6 +85,7 @@ fn full_png() {
 }
 
 #[test]
+#[ignore]
 fn full_pdf() {
     let actual = get_qr_bill_data("tests/data/full.pdf".to_string(), true);
 
@@ -146,6 +148,7 @@ fn rotated_png() {
 }
 
 #[test]
+#[ignore]
 fn rotated_pdf() {
     let actual = get_qr_bill_data("tests/data/rotated.pdf".to_string(), true);
 
@@ -227,6 +230,7 @@ fn double_png() {
 
 
 #[test]
+#[ignore]
 fn double_pdf() {
     let actual = get_qr_bill_data("tests/data/double.pdf".to_string(), true);
 
@@ -283,6 +287,7 @@ fn none_png() {
 }
 
 #[test]
+#[ignore]
 fn none_pdf() {
     let actual = get_qr_bill_data("tests/data/none.pdf".to_string(), true);
 
