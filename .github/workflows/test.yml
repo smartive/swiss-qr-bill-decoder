@@ -17,20 +17,28 @@ jobs:
         platform:
           - target: aarch64-apple-darwin
             runner: macos-latest
+            cross: true
           - target: aarch64-unknown-linux-gnu
             runner: ubuntu-latest
+            cross: true
           - target: aarch64-unknown-linux-musl
             runner: ubuntu-latest
+            cross: true
           - target: i686-unknown-linux-gnu
             runner: ubuntu-latest
+            cross: true
           - target: i686-unknown-linux-musl
             runner: ubuntu-latest
+            cross: true
           - target: x86_64-apple-darwin
             runner: macos-latest
+            cross: false
           - target: x86_64-unknown-linux-gnu
             runner: ubuntu-latest
+            cross: false
           - target: x86_64-unknown-linux-musl
             runner: ubuntu-latest
+            cross: false
 
     steps:
     - name: Checkout Code
@@ -41,11 +49,28 @@ jobs:
       with:
         targets: "${{ matrix.platform.target }}"
 
+    - name: Install cross
+      uses: taiki-e/install-action@v2
+      if: matrix.platform.cross
+      with:
+        tool: cross
+
     - name: Rust (Cargo) Caching
       uses: Swatinem/rust-cache@v2
 
     - name: Build
-      run: cargo build --locked --target ${{ matrix.platform.target }}
+      env:
+        CARGO: ${{ matrix.platform.cross && 'cross' || 'cargo' }}
+      run: |
+        $CARGO test \
+          --target ${{ matrix.platform.target }} \
+          --no-run \
+          --locked
 
     - name: Run tests
-      run: cargo test --locked --target ${{ matrix.platform.target }}
+      env:
+        CARGO: ${{ matrix.platform.cross && 'cross' || 'cargo' }}
+      run: |
+        $CARGO test \
+          --target ${{ matrix.platform.target }} \
+          --locked
