@@ -27,7 +27,7 @@ where
             "-dSAFER",
             "-dNOPAUSE",
             "-dFILTERTEXT",
-            "-r300",
+            "-r400",
             "-sDEVICE=pnggray",
             &format!(
                 "-sOutputFile={}/%03d.png",
