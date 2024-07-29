@@ -28,7 +28,7 @@ where
             "-dNOPAUSE",
             "-dFILTERTEXT",
             "-r300",
-            "-sDEVICE=pngmono",
+            "-sDEVICE=pnggray",
             &format!(
                 "-sOutputFile={}/%03d.png",
                 tmp_path.as_ref().to_string_lossy()
