@@ -10,6 +10,7 @@ mod qr_parser;
 
 use crate::models::qr_data::QRData;
 use image;
+use rayon::prelude::*;
 use rqrr::PreparedImage;
 use tempfile::tempdir;
 
@@ -25,15 +26,18 @@ pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
         _ => panic!("Unsupported file format"),
     };
 
-    let mut all_qr_codes = Vec::new();
-    for img in images {
-        let mut img = PreparedImage::prepare(img.to_luma8());
-        img.detect_grids()
-            .into_iter()
-            .filter_map(|result| result.decode().ok())
-            .map(|(_, content)| qr_parser::get_qr_code_data(&content))
-            .for_each(|qr_data| all_qr_codes.push(qr_data));
-    }
+    let all_qr_codes: Vec<_> = images
+        .into_par_iter()
+        .map(|img| {
+            let mut img = PreparedImage::prepare(img.to_luma8());
+            img.detect_grids()
+                .into_par_iter()
+                .filter_map(|result| result.decode().ok())
+                .map(|(_, content)| qr_parser::get_qr_code_data(&content))
+                .collect::<Vec<_>>()
+        })
+        .flatten()
+        .collect();
 
     // check if there were any errors
     if fail_on_error && all_qr_codes.iter().any(|result| result.is_err()) {
