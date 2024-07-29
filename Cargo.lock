@@ -1173,6 +1173,7 @@ dependencies = [
  "image",
  "indoc",
  "predicates",
+ "rayon",
  "rqrr",
  "serde",
  "serde_json",

@@ -4,33 +4,33 @@ use swiss_qr_bill_decoder::models::qr_data::QRData;
 
 #[test]
 fn six_example_01() {
-        let actual = get_qr_bill_data("tests/data/six_examples/01.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/01.png".to_string(), true);
 
-        let expected = vec![QRData::new(
-            "CH6431961000004421557".to_string(),
-            Address::new(
-                "S".to_string(),
-                "Max Muster & Söhne".to_string(),
-                "Musterstrasse 123".to_string(),
-                "8000 Seldwyla".to_string(),
-                "CH".to_string(),
-            ),
-            Some(Address::new(
-                "S".to_string(),
-                "Simon Muster".to_string(),
-                "Musterstrasse 1".to_string(),
-                "8000 Seldwyla".to_string(),
-                "CH".to_string(),
-            )),
-            Some("50.00".to_string()),
-            "CHF".to_string(),
-            "QRR".to_string(),
-            Some("000008207791225857421286694".to_string()),
-            Some("Payment of travel".to_string()),
-        )];
+    let expected = vec![QRData::new(
+        "CH6431961000004421557".to_string(),
+        Address::new(
+            "S".to_string(),
+            "Max Muster & Söhne".to_string(),
+            "Musterstrasse 123".to_string(),
+            "8000 Seldwyla".to_string(),
+            "CH".to_string(),
+        ),
+        Some(Address::new(
+            "S".to_string(),
+            "Simon Muster".to_string(),
+            "Musterstrasse 1".to_string(),
+            "8000 Seldwyla".to_string(),
+            "CH".to_string(),
+        )),
+        Some("50.00".to_string()),
+        "CHF".to_string(),
+        "QRR".to_string(),
+        Some("000008207791225857421286694".to_string()),
+        Some("Payment of travel".to_string()),
+    )];
 
-        assert_eq!(actual.len(), expected.len());
-        assert_eq!(actual[0], expected[0]);
+    assert_eq!(actual.len(), expected.len());
+    assert_eq!(actual[0], expected[0]);
 }
 
 #[test]
@@ -123,7 +123,7 @@ fn six_example_04() {
 #[test]
 fn six_example_05() {
     let actual = get_qr_bill_data("tests/data/six_examples/05.png".to_string(), true);
-    
+
     let expected = vec![QRData::new(
         "CH5800791123000889012".to_string(),
         Address::new(
