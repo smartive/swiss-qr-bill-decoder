@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.0.2...v1.1.0) (2024-07-29)
+
+
+### Features
+
+* improve qr detection and add jpg support ([#21](https://github.com/smartive/swiss-qr-bill-decoder/issues/21)) ([b06b87c](https://github.com/smartive/swiss-qr-bill-decoder/commit/b06b87c3df2d4c25a408c1afef0e034bbc129f0e))
+
 ## [1.0.2](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.0.1...v1.0.2) (2024-07-29)
 
 
