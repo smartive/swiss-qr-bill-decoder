@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.0...v1.1.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* make file extension check case-insensitive ([#22](https://github.com/smartive/swiss-qr-bill-decoder/issues/22)) ([6c314e8](https://github.com/smartive/swiss-qr-bill-decoder/commit/6c314e8f2922c1c023958c45be0b053b633e7d0c))
+
 # [1.1.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.0.2...v1.1.0) (2024-07-29)
 
 
