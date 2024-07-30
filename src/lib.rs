@@ -16,7 +16,8 @@ use tempfile::tempdir;
 
 pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
     let tmp_dir = tempdir().expect("Error creating temporary directory");
-    let images = match file_path.as_str() {
+    
+    let images = match file_path.to_lowercase().as_str() {
         input if input.ends_with(".pdf") => {
             pdf_converter::convert_to_png(&file_path, &tmp_dir.path())
         }
