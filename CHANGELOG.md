@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.14...v1.1.15) (2024-09-16)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate clap to v4.5.17 ([939ef15](https://github.com/smartive/swiss-qr-bill-decoder/commit/939ef153e11464c6712829b87a7a44c7da6f970b))
+
 ## [1.1.14](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.13...v1.1.14) (2024-08-24)
 
 
