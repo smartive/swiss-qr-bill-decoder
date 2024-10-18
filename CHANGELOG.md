@@ -1,3 +1,10 @@
+## [1.1.24](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.23...v1.1.24) (2024-10-18)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate serde_json to v1.0.129 ([8c2ce23](https://github.com/smartive/swiss-qr-bill-decoder/commit/8c2ce237acbf4e3e13f778babf3d2efffeaaefed))
+
 ## [1.1.23](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.22...v1.1.23) (2024-10-18)
 
 
