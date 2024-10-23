@@ -3,7 +3,7 @@ use crate::models::qr_data::QRData;
 use std::str::Lines;
 
 /// Get the QR code data from a String according to the Swiss QR bill standard
-pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
+pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
     let mut lines = text.lines();
 
     if lines.next() != Some("SPC") {
@@ -19,15 +19,13 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     }
 
     let iban = match lines.next() {
-        Some(iban) if iban.is_empty() => return Err("Missing IBAN".to_string()),
+        Some("") => return Err("Missing IBAN".to_string()),
         Some(iban) if iban.starts_with("CH") || iban.starts_with("LI") => iban.to_string(),
         _ => return Err("Only CH and LI IBANs are supported".to_string()),
     };
 
     let address_type = match lines.next() {
-        Some(address_type) if address_type.is_empty() => {
-            return Err("Recipient address type is empty".to_string())
-        }
+        Some("") => return Err("Recipient address type is empty".to_string()),
         Some(address_type) => address_type,
         _ => return Err("Missing recipient address type".to_string()),
     };
@@ -37,19 +35,19 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     skip_lines(&mut lines, 7);
 
     let amount = match lines.next() {
-        Some(amount) if amount.is_empty() => None,
+        Some("") => None,
         Some(amount) => Some(amount.trim().to_string()),
         _ => return Err("Missing amount".to_string()),
     };
 
     let currency = match lines.next() {
-        Some(currency) if currency.is_empty() => return Err("Missing currency".to_string()),
+        Some("") => return Err("Missing currency".to_string()),
         Some(currency) if currency.eq("CHF") || currency.eq("EUR") => currency.to_string(),
         _ => return Err("Only CHF and EUR currencies are supported".to_string()),
     };
 
     let address_type = match lines.next() {
-        Some(address_type) if address_type.is_empty() => None,
+        Some("") => None,
         Some(address_type) => Some(address_type),
         _ => return Err("Missing address type".to_string()),
     };
@@ -62,9 +60,7 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
     };
 
     let reference_type = match lines.next() {
-        Some(reference_type) if reference_type.is_empty() => {
-            return Err("Missing reference type".to_string())
-        }
+        Some("") => return Err("Missing reference type".to_string()),
         Some(reference_type)
             if reference_type.eq("NON")
                 || reference_type.eq("QRR")
@@ -81,13 +77,13 @@ pub fn get_qr_code_data(text: &String) -> Result<QRData, String> {
         {
             return Err("Reference is empty".to_string())
         }
-        Some(reference) if reference.is_empty() => None,
+        Some("") => None,
         Some(reference) => Some(reference.trim().to_string()),
         _ => return Err("Missing reference".to_string()),
     };
 
     let message = match lines.next() {
-        Some(message) if message.is_empty() => None,
+        Some("") => None,
         Some(message) => Some(message.trim().to_string()),
         _ => return Err("Missing message".to_string()),
     };
@@ -116,7 +112,7 @@ fn skip_lines(lines: &mut Lines, skip_lines: i32) {
 
 fn to_address(lines: &mut Lines, address_type: &str) -> Result<Address, String> {
     let address_type = match address_type {
-        address_type if address_type.is_empty() => return Err("Address type is empty".to_string()),
+        "" => return Err("Address type is empty".to_string()),
         address_type if !address_type.eq("K") && !address_type.eq("S") => {
             return Err("Only address types K and S are supported".to_string())
         }
@@ -125,7 +121,7 @@ fn to_address(lines: &mut Lines, address_type: &str) -> Result<Address, String> 
 
     let name = match lines.next() {
         None => return Err("Missing name".to_string()),
-        Some(name) if name.is_empty() => return Err("Recipient name is empty".to_string()),
+        Some("") => return Err("Recipient name is empty".to_string()),
         Some(name) => name.to_string(),
     };
 
