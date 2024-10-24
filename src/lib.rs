@@ -1,4 +1,4 @@
-//! # Simple program to read swiss invoices QR codes as pdf or png files and the relevant data
+//! # Simple program to read Swiss invoice QR codes from PDF or PNG files and extract relevant data
 //!
 //! This program reads QR codes from Swiss invoices and outputs the relevant data as JSON.
 //!
@@ -9,43 +9,51 @@ mod pdf_converter;
 mod qr_parser;
 
 use crate::models::qr_data::QRData;
-use image;
+use image::DynamicImage;
 use rayon::prelude::*;
 use rqrr::PreparedImage;
+use std::path::Path;
 use tempfile::tempdir;
 
-pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
-    let tmp_dir = tempdir().expect("Error creating temporary directory");
-    
-    let images = match file_path.to_lowercase().as_str() {
-        input if input.ends_with(".pdf") => {
-            pdf_converter::convert_to_png(&file_path, &tmp_dir.path())
-        }
-        input if input.ends_with(".png") || input.ends_with(".jpg") || input.ends_with(".jpeg") => {
-            vec![image::open(&file_path).expect("Error loading image")]
-        }
-        _ => panic!("Unsupported file format"),
-    };
+pub fn get_qr_bill_data(file_path: &str, fail_on_error: bool) -> Vec<QRData> {
+    let tmp_dir = tempdir().expect("Failed to create temporary directory");
 
-    let all_qr_codes: Vec<_> = images
+    let images = load_images(file_path, tmp_dir.path());
+
+    let qr_data_results: Vec<_> = images
         .into_par_iter()
-        .map(|img| {
-            let mut img = PreparedImage::prepare(img.to_luma8());
-            img.detect_grids()
-                .into_par_iter()
-                .filter_map(|result| result.decode().ok())
-                .map(|(_, content)| qr_parser::get_qr_code_data(&content))
-                .collect::<Vec<_>>()
-        })
-        .flatten()
+        .flat_map(|img| extract_qr_data(&img))
         .collect();
 
-    // check if there were any errors
-    if fail_on_error && all_qr_codes.iter().any(|result| result.is_err()) {
+    handle_errors(&qr_data_results, fail_on_error);
+
+    qr_data_results.into_iter().filter_map(Result::ok).collect()
+}
+
+fn load_images(file_path: &str, tmp_dir_path: &Path) -> Vec<DynamicImage> {
+    match file_path.to_lowercase().as_str() {
+        input if input.ends_with(".pdf") => pdf_converter::convert_to_png(file_path, tmp_dir_path),
+        input if input.ends_with(".png") || input.ends_with(".jpg") || input.ends_with(".jpeg") => {
+            vec![image::open(file_path).expect("Failed to load image")]
+        }
+        _ => panic!("Unsupported file format"),
+    }
+}
+
+fn extract_qr_data(img: &DynamicImage) -> Vec<Result<QRData, String>> {
+    PreparedImage::prepare(img.to_luma8())
+        .detect_grids()
+        .into_par_iter()
+        .filter_map(|grid| grid.decode().ok())
+        .map(|(_, content)| qr_parser::get_qr_code_data(&content))
+        .collect()
+}
+
+fn handle_errors(results: &[Result<QRData, String>], fail_on_error: bool) {
+    if fail_on_error && results.iter().any(Result::is_err) {
         eprintln!("Error parsing QR codes");
 
-        // print the errors
-        for result in all_qr_codes {
+        for result in results {
             if let Err(err) = result {
                 eprintln!("{}", err);
             }
@@ -53,12 +61,4 @@ pub fn get_qr_bill_data(file_path: String, fail_on_error: bool) -> Vec<QRData> {
 
         std::process::exit(1);
     }
-
-    let all_qr_codes: Vec<_> = all_qr_codes
-        .into_iter()
-        .filter(|result| result.is_ok())
-        .map(|result| result.unwrap())
-        .collect();
-
-    return all_qr_codes;
 }
