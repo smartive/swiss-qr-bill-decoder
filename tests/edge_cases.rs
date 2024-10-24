@@ -4,7 +4,7 @@ use swiss_qr_bill_decoder::models::qr_data::QRData;
 
 #[test]
 fn minimal_png() {
-    let actual = get_qr_bill_data("tests/data/minimal.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/minimal.png", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_minimal());
@@ -12,7 +12,7 @@ fn minimal_png() {
 
 #[test]
 fn minimal_jpg() {
-    let actual = get_qr_bill_data("tests/data/minimal.jpg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/minimal.jpg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_minimal());
@@ -20,7 +20,7 @@ fn minimal_jpg() {
 
 #[test]
 fn minimal_jpeg() {
-    let actual = get_qr_bill_data("tests/data/minimal.jpeg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/minimal.jpeg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_minimal());
@@ -29,7 +29,7 @@ fn minimal_jpeg() {
 #[test]
 #[ignore]
 fn minimal_pdf() {
-    let actual = get_qr_bill_data("tests/data/minimal.pdf".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/minimal.pdf", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_minimal());
@@ -37,7 +37,7 @@ fn minimal_pdf() {
 
 #[test]
 fn full_png() {
-    let actual = get_qr_bill_data("tests/data/full.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/full.png", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_full());
@@ -45,7 +45,7 @@ fn full_png() {
 
 #[test]
 fn full_jpg() {
-    let actual = get_qr_bill_data("tests/data/full.jpg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/full.jpg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_full());
@@ -53,7 +53,7 @@ fn full_jpg() {
 
 #[test]
 fn full_jpeg() {
-    let actual = get_qr_bill_data("tests/data/full.jpeg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/full.jpeg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_full());
@@ -62,7 +62,7 @@ fn full_jpeg() {
 #[test]
 #[ignore]
 fn full_pdf() {
-    let actual = get_qr_bill_data("tests/data/full.pdf".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/full.pdf", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_full());
@@ -70,7 +70,7 @@ fn full_pdf() {
 
 #[test]
 fn rotated_png() {
-    let actual = get_qr_bill_data("tests/data/rotated.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/rotated.png", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_rotated());
@@ -78,7 +78,7 @@ fn rotated_png() {
 
 #[test]
 fn rotated_jpg() {
-    let actual = get_qr_bill_data("tests/data/rotated.jpg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/rotated.jpg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_rotated());
@@ -86,7 +86,7 @@ fn rotated_jpg() {
 
 #[test]
 fn rotated_jpeg() {
-    let actual = get_qr_bill_data("tests/data/rotated.jpeg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/rotated.jpeg", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_rotated());
@@ -95,7 +95,7 @@ fn rotated_jpeg() {
 #[test]
 #[ignore]
 fn rotated_pdf() {
-    let actual = get_qr_bill_data("tests/data/rotated.pdf".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/rotated.pdf", true);
 
     assert_eq!(actual.len(), 1);
     assert_eq!(actual[0], expected_rotated());
@@ -103,7 +103,7 @@ fn rotated_pdf() {
 
 #[test]
 fn double_png() {
-    let actual = get_qr_bill_data("tests/data/double.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/double.png", true);
 
     let expected = vec![expected_double_1(), expected_double_2()];
 
@@ -114,7 +114,7 @@ fn double_png() {
 
 #[test]
 fn double_jpg() {
-    let actual = get_qr_bill_data("tests/data/double.jpg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/double.jpg", true);
 
     let expected = vec![expected_double_1(), expected_double_2()];
 
@@ -125,7 +125,7 @@ fn double_jpg() {
 
 #[test]
 fn double_jpeg() {
-    let actual = get_qr_bill_data("tests/data/double.jpeg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/double.jpeg", true);
 
     let expected = vec![expected_double_1(), expected_double_2()];
 
@@ -137,7 +137,7 @@ fn double_jpeg() {
 #[test]
 #[ignore]
 fn double_pdf() {
-    let actual = get_qr_bill_data("tests/data/double.pdf".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/double.pdf", true);
     let expected = vec![expected_double_1(), expected_double_2()];
 
     assert_eq!(actual.len(), expected.len());
@@ -147,21 +147,21 @@ fn double_pdf() {
 
 #[test]
 fn none_png() {
-    let actual = get_qr_bill_data("tests/data/none.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/none.png", true);
 
     assert!(actual.is_empty());
 }
 
 #[test]
 fn none_jpg() {
-    let actual = get_qr_bill_data("tests/data/none.jpg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/none.jpg", true);
 
     assert!(actual.is_empty());
 }
 
 #[test]
 fn none_jpeg() {
-    let actual = get_qr_bill_data("tests/data/none.jpeg".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/none.jpeg", true);
 
     assert!(actual.is_empty());
 }
@@ -169,7 +169,7 @@ fn none_jpeg() {
 #[test]
 #[ignore]
 fn none_pdf() {
-    let actual = get_qr_bill_data("tests/data/none.pdf".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/none.pdf", true);
 
     assert!(actual.is_empty());
 }

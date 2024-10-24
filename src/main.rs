@@ -11,7 +11,7 @@ use swiss_qr_bill_decoder::get_qr_bill_data;
 
 fn main() {
     let args = args::Args::parse();
-    let all_qr_codes: Vec<_> = get_qr_bill_data(args.input, args.fail_on_error);
+    let all_qr_codes: Vec<_> = get_qr_bill_data(args.input.as_ref(), args.fail_on_error);
 
     // Serialize QR code data to stdout
     let writer = if args.pretty {
