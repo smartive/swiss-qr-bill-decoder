@@ -6,17 +6,9 @@ use std::str::Lines;
 pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
     let mut lines = text.lines();
 
-    if lines.next() != Some("SPC") {
-        return Err("First line is not 'SPC'".to_string());
-    }
-
-    if lines.next() != Some("0200") {
-        return Err("Only version 0200 is supported".to_string());
-    }
-
-    if lines.next() != Some("1") {
-        return Err("Only coding type 1 (UTF-8) is supported".to_string());
-    }
+    check_line(&mut lines, "SPC", "First line is not 'SPC'")?;
+    check_line(&mut lines, "0200", "Only version 0200 is supported")?;
+    check_line(&mut lines, "1", "Only coding type 1 (UTF-8) is supported")?;
 
     let iban = match lines.next() {
         Some("") => return Err("Missing IBAN".to_string()),
@@ -24,36 +16,21 @@ pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
         _ => return Err("Only CH and LI IBANs are supported".to_string()),
     };
 
-    let address_type = match lines.next() {
-        Some("") => return Err("Recipient address type is empty".to_string()),
-        Some(address_type) => address_type,
-        _ => return Err("Missing recipient address type".to_string()),
-    };
-
+    let address_type = lines.next().ok_or("Missing recipient address type")?;
     let recipient_address = to_address(&mut lines, address_type)?;
 
     skip_lines(&mut lines, 7);
 
-    let amount = match lines.next() {
-        Some("") => None,
-        Some(amount) => Some(amount.trim().to_string()),
-        _ => return Err("Missing amount".to_string()),
-    };
-
+    let amount = lines.next().filter(|s| !s.is_empty()).map(str::to_string);
     let currency = match lines.next() {
         Some("") => return Err("Missing currency".to_string()),
-        Some(currency) if currency.eq("CHF") || currency.eq("EUR") => currency.to_string(),
+        Some(currency) if currency == "CHF" || currency == "EUR" => currency.to_string(),
         _ => return Err("Only CHF and EUR currencies are supported".to_string()),
     };
 
-    let address_type = match lines.next() {
-        Some("") => None,
-        Some(address_type) => Some(address_type),
-        _ => return Err("Missing address type".to_string()),
-    };
-
-    let sender_address = if address_type.is_some() {
-        Some(to_address(&mut lines, address_type.unwrap())?)
+    let address_type = lines.next().filter(|s| !s.is_empty());
+    let sender_address = if let Some(address_type) = address_type {
+        Some(to_address(&mut lines, address_type)?)
     } else {
         skip_lines(&mut lines, 6);
         None
@@ -61,36 +38,25 @@ pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
 
     let reference_type = match lines.next() {
         Some("") => return Err("Missing reference type".to_string()),
-        Some(reference_type)
-            if reference_type.eq("NON")
-                || reference_type.eq("QRR")
-                || reference_type.eq("SCOR") =>
-        {
+        Some(reference_type) if ["NON", "QRR", "SCOR"].contains(&reference_type) => {
             reference_type.to_string()
         }
-        _ => return Err("Only reference types NON, QRR and SCOR are supported".to_string()),
+        _ => return Err("Only reference types NON, QRR, and SCOR are supported".to_string()),
     };
 
     let reference = match lines.next() {
         Some(reference)
-            if reference.is_empty() && (reference_type.eq("QRR") || reference_type.eq("SCOR")) =>
+            if reference.is_empty() && ["QRR", "SCOR"].contains(&reference_type.as_str()) =>
         {
-            return Err("Reference is empty".to_string())
+            return Err("Reference is empty".to_string());
         }
         Some("") => None,
         Some(reference) => Some(reference.trim().to_string()),
         _ => return Err("Missing reference".to_string()),
     };
 
-    let message = match lines.next() {
-        Some("") => None,
-        Some(message) => Some(message.trim().to_string()),
-        _ => return Err("Missing message".to_string()),
-    };
-
-    if lines.next() != Some("EPD") {
-        return Err("Missing trailing 'EPD'".to_string());
-    }
+    let message = lines.next().filter(|s| !s.is_empty()).map(str::to_string);
+    check_line(&mut lines, "EPD", "Missing trailing 'EPD'")?;
 
     Ok(QRData::new(
         iban,
@@ -104,8 +70,15 @@ pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
     ))
 }
 
-fn skip_lines(lines: &mut Lines, skip_lines: i32) {
-    for _ in 0..skip_lines {
+fn check_line(lines: &mut Lines, expected: &str, error_msg: &str) -> Result<(), String> {
+    if lines.next() != Some(expected) {
+        return Err(error_msg.to_string());
+    }
+    Ok(())
+}
+
+fn skip_lines(lines: &mut Lines, skip_count: i32) {
+    for _ in 0..skip_count {
         let _ = lines.next();
     }
 }
@@ -113,51 +86,39 @@ fn skip_lines(lines: &mut Lines, skip_lines: i32) {
 fn to_address(lines: &mut Lines, address_type: &str) -> Result<Address, String> {
     let address_type = match address_type {
         "" => return Err("Address type is empty".to_string()),
-        address_type if !address_type.eq("K") && !address_type.eq("S") => {
+        address_type if !["K", "S"].contains(&address_type) => {
             return Err("Only address types K and S are supported".to_string())
         }
         address_type => address_type.to_string(),
     };
 
-    let name = match lines.next() {
-        None => return Err("Missing name".to_string()),
-        Some("") => return Err("Recipient name is empty".to_string()),
-        Some(name) => name.to_string(),
-    };
+    let name = lines.next().ok_or("Missing name".to_string())?.to_string();
+    let street_or_address_line_1 = lines
+        .next()
+        .ok_or("Missing street or address line 1".to_string())?
+        .to_string();
+    let building_number_or_address_line_2 = lines
+        .next()
+        .ok_or("Missing building number or address line 2".to_string())?
+        .to_string();
+    let postal_code = lines
+        .next()
+        .ok_or("Missing postal code".to_string())?
+        .to_string();
+    let town = lines.next().ok_or("Missing town".to_string())?.to_string();
+    let country = lines
+        .next()
+        .ok_or("Missing country".to_string())?
+        .to_string();
 
-    let street_or_address_line_1 = match lines.next() {
-        None => return Err("Missing street or address line 1".to_string()),
-        Some(street_or_address_line_1) => street_or_address_line_1.to_string(),
-    };
-
-    let building_number_or_address_line_2 = match lines.next() {
-        None => return Err("Missing building number or address line 2".to_string()),
-        Some(building_number_or_address_line_2) => building_number_or_address_line_2.to_string(),
-    };
-
-    let postal_code = match lines.next() {
-        None => return Err("Missing postal code".to_string()),
-        Some(postal_code) => postal_code.to_string(),
-    };
-
-    let town = match lines.next() {
-        None => return Err("Missing town".to_string()),
-        Some(town) => town.to_string(),
-    };
-
-    let country = match lines.next() {
-        None => return Err("Missing country".to_string()),
-        Some(country) => country.to_string(),
-    };
-
-    let address_line_1 = if address_type.eq("K") {
-        street_or_address_line_1.to_string()
+    let address_line_1 = if address_type == "K" {
+        street_or_address_line_1.clone()
     } else {
         format!("{street_or_address_line_1} {building_number_or_address_line_2}")
     };
 
-    let address_line_2 = if address_type.eq("K") {
-        building_number_or_address_line_2.to_string()
+    let address_line_2 = if address_type == "K" {
+        building_number_or_address_line_2.clone()
     } else {
         format!("{postal_code} {town}")
     };
