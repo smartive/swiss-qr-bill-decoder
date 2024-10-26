@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.27...v1.2.0) (2024-10-26)
+
+
+### Features
+
+* add clippy to pipeline ([#53](https://github.com/smartive/swiss-qr-bill-decoder/issues/53)) ([e9d3c0c](https://github.com/smartive/swiss-qr-bill-decoder/commit/e9d3c0c187f9aa28a92533dbde494c6d6c705a66))
+
 ## [1.1.27](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.1.26...v1.1.27) (2024-10-22)
 
 
