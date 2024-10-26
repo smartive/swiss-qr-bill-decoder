@@ -175,7 +175,7 @@ mod tests {
 
         "#};
 
-        let qr_code_data = get_qr_code_data(&MY_CONST.to_string())?;
+        let qr_code_data = get_qr_code_data(&MY_CONST)?;
 
         let expected = QRData::new(
             "CH6431961000004421557".to_string(),
