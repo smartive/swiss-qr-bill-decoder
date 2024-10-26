@@ -4,7 +4,7 @@ use swiss_qr_bill_decoder::models::qr_data::QRData;
 
 #[test]
 fn six_example_01() {
-    let actual = get_qr_bill_data("tests/data/six_examples/01.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/01.png", true);
 
     let expected = vec![QRData::new(
         "CH6431961000004421557".to_string(),
@@ -35,7 +35,7 @@ fn six_example_01() {
 
 #[test]
 fn six_example_02() {
-    let actual = get_qr_bill_data("tests/data/six_examples/02.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/02.png", true);
 
     let expected = vec![QRData::new(
         "CH4431999123000889012".to_string(),
@@ -66,7 +66,7 @@ fn six_example_02() {
 
 #[test]
 fn six_example_03() {
-    let actual = get_qr_bill_data("tests/data/six_examples/03.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/03.png", true);
 
     let expected = vec![QRData::new(
         "CH5204835012345671000".to_string(),
@@ -91,7 +91,7 @@ fn six_example_03() {
 
 #[test]
 fn six_example_04() {
-    let actual = get_qr_bill_data("tests/data/six_examples/04.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/04.png", true);
 
     let expected = vec![QRData::new(
         "CH5800791123000889012".to_string(),
@@ -122,7 +122,7 @@ fn six_example_04() {
 
 #[test]
 fn six_example_05() {
-    let actual = get_qr_bill_data("tests/data/six_examples/05.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/05.png", true);
 
     let expected = vec![QRData::new(
         "CH5800791123000889012".to_string(),
@@ -153,7 +153,7 @@ fn six_example_05() {
 
 #[test]
 fn six_example_06() {
-    let actual = get_qr_bill_data("tests/data/six_examples/06.png".to_string(), true);
+    let actual = get_qr_bill_data("tests/data/six_examples/06.png", true);
 
     let expected = vec![QRData::new(
         "CH5800791123000889012".to_string(),

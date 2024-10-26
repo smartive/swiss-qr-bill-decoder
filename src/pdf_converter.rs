@@ -21,7 +21,7 @@ where
     Q: AsRef<Path>,
 {
     Command::new("gs")
-        .args(&[
+        .args([
             "-q",
             "-dBATCH",
             "-dSAFER",

@@ -14,6 +14,8 @@ pub struct QRData {
 }
 
 impl QRData {
+
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         iban: String,
         recipient_address: Address,
