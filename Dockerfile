@@ -1,4 +1,4 @@
-FROM rust:1.82-alpine as build
+FROM rust:1.83-alpine as build
 
 RUN apk add --update --no-cache musl-dev
 
