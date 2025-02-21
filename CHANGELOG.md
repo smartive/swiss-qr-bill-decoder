@@ -1,3 +1,10 @@
+## [1.2.24](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.2.23...v1.2.24) (2025-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update serde packages ([#83](https://github.com/smartive/swiss-qr-bill-decoder/issues/83)) ([1005d00](https://github.com/smartive/swiss-qr-bill-decoder/commit/1005d0002dba07d3b4499a58745508ad45c66d1e))
+
 ## [1.2.23](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.2.22...v1.2.23) (2025-02-18)
 
 
