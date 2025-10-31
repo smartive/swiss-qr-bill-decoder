@@ -58,6 +58,8 @@ pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
     let message = lines.next().filter(|s| !s.is_empty()).map(str::to_string);
     check_line(&mut lines, "EPD", "Missing trailing 'EPD'")?;
 
+    let billing_info = lines.next().filter(|s| !s.is_empty()).map(str::to_string);
+
     Ok(QRData::new(
         iban,
         recipient_address,
@@ -67,6 +69,7 @@ pub fn get_qr_code_data(text: &str) -> Result<QRData, String> {
         reference_type,
         reference,
         message,
+        billing_info,
     ))
 }
 
@@ -171,8 +174,7 @@ mod tests {
         000008207791225857421286694
         Bezahlung der Reise
         EPD
-
-
+        //S1/10/1234/11/201021/30/102673386/32/7.7/40/0:30
         "#};
 
         let qr_code_data = get_qr_code_data(MY_CONST)?;
@@ -198,6 +200,7 @@ mod tests {
             "QRR".to_string(),
             Some("000008207791225857421286694".to_string()),
             Some("Bezahlung der Reise".to_string()),
+            Some("//S1/10/1234/11/201021/30/102673386/32/7.7/40/0:30".to_string()),
         );
 
         assert_eq!(expected, qr_code_data);

@@ -11,6 +11,7 @@ pub struct QRData {
     reference_type: String,
     reference: Option<String>,
     message: Option<String>,
+    billing_information: Option<String>,
 }
 
 impl QRData {
@@ -25,6 +26,7 @@ impl QRData {
         reference_type: String,
         reference: Option<String>,
         message: Option<String>,
+        billing_information: Option<String>,
     ) -> Self {
         Self {
             iban,
@@ -35,6 +37,7 @@ impl QRData {
             reference_type,
             reference,
             message,
+            billing_information,
         }
     }
 }

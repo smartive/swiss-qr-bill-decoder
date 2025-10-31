@@ -27,6 +27,7 @@ fn six_example_01() {
         "QRR".to_string(),
         Some("000008207791225857421286694".to_string()),
         Some("Payment of travel".to_string()),
+        None,
     )];
 
     assert_eq!(actual.len(), expected.len());
@@ -58,6 +59,7 @@ fn six_example_02() {
         "QRR".to_string(),
         Some("210000000003139471430009017".to_string()),
         Some("Order from 15.10.2020".to_string()),
+        Some("//S1/10/1234/11/201021/30/102673386/32/7.7/40/0:30".to_string())
     )];
 
     assert_eq!(actual.len(), expected.len());
@@ -81,6 +83,7 @@ fn six_example_03() {
         None,
         "CHF".to_string(),
         "NON".to_string(),
+        None,
         None,
         None,
     )];
@@ -114,6 +117,7 @@ fn six_example_04() {
         "SCOR".to_string(),
         Some("RF240191230100405JSH0438".to_string()),
         None,
+        None,
     )];
 
     assert_eq!(actual.len(), expected.len());
@@ -145,6 +149,7 @@ fn six_example_05() {
         "SCOR".to_string(),
         Some("RF18539007547034".to_string()),
         None,
+        None,
     )];
 
     assert_eq!(actual.len(), expected.len());
@@ -175,6 +180,7 @@ fn six_example_06() {
         "CHF".to_string(),
         "SCOR".to_string(),
         Some("RF18539007547034".to_string()),
+        None,
         None,
     )];
 
