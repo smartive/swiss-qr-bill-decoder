@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.2.55...v1.3.0) (2025-10-31)
+
+
+### Features
+
+* add billing information support ([#134](https://github.com/smartive/swiss-qr-bill-decoder/issues/134)) ([ca86c82](https://github.com/smartive/swiss-qr-bill-decoder/commit/ca86c82df4d45ef4fe3e0f9f286276793497a0a2))
+
 ## [1.2.55](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.2.54...v1.2.55) (2025-09-24)
 
 
