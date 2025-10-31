@@ -190,6 +190,7 @@ pub fn expected_minimal() -> QRData {
         "NON".to_string(),
         None,
         None,
+        None,
     )
 }
 
@@ -215,6 +216,7 @@ pub fn expected_full() -> QRData {
         "SCOR".to_string(),
         Some("RF541234".to_string()),
         Some("This is a test Message".to_string()),
+        None,
     )
 }
 
@@ -240,6 +242,7 @@ pub fn expected_rotated() -> QRData {
         "SCOR".to_string(),
         Some("RF541234".to_string()),
         Some("This is a test Message".to_string()),
+        None,
     )
 }
 
@@ -265,6 +268,7 @@ pub fn expected_double_1() -> QRData {
         "SCOR".to_string(),
         Some("RF541234".to_string()),
         Some("This is a test Message".to_string()),
+        None,
     )
 }
 
@@ -282,6 +286,7 @@ pub fn expected_double_2() -> QRData {
         None,
         "CHF".to_string(),
         "NON".to_string(),
+        None,
         None,
         None,
     )
