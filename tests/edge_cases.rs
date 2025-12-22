@@ -105,7 +105,7 @@ fn rotated_pdf() {
 fn double_png() {
     let actual = get_qr_bill_data("tests/data/double.png", true);
 
-    let expected = vec![expected_double_1(), expected_double_2()];
+    let expected = [expected_double_1(), expected_double_2()];
 
     assert_eq!(actual.len(), expected.len());
     assert_eq!(actual[0], expected[0]);
@@ -116,7 +116,7 @@ fn double_png() {
 fn double_jpg() {
     let actual = get_qr_bill_data("tests/data/double.jpg", true);
 
-    let expected = vec![expected_double_1(), expected_double_2()];
+    let expected = [expected_double_1(), expected_double_2()];
 
     assert_eq!(actual.len(), expected.len());
     assert_eq!(actual[0], expected[0]);
@@ -127,7 +127,7 @@ fn double_jpg() {
 fn double_jpeg() {
     let actual = get_qr_bill_data("tests/data/double.jpeg", true);
 
-    let expected = vec![expected_double_1(), expected_double_2()];
+    let expected = [expected_double_1(), expected_double_2()];
 
     assert_eq!(actual.len(), expected.len());
     assert_eq!(actual[0], expected[0]);
@@ -138,7 +138,7 @@ fn double_jpeg() {
 #[ignore]
 fn double_pdf() {
     let actual = get_qr_bill_data("tests/data/double.pdf", true);
-    let expected = vec![expected_double_1(), expected_double_2()];
+    let expected = [expected_double_1(), expected_double_2()];
 
     assert_eq!(actual.len(), expected.len());
     assert_eq!(actual[0], expected[0]);
