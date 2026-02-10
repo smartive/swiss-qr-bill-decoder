@@ -25,7 +25,7 @@ serde = { version = "1.0.203", features = ["derive"] }
 rayon = "1.10.0"
 
 [dev-dependencies]
-assert_cmd = "2.0.14"
-predicates = "3.1.0"
-indoc = "2.0.5"
-assert-json-diff = "2.0.2"
+assert_cmd = "=2.0.14"
+predicates = "=3.1.0"
+indoc = "=2.0.5"
+assert-json-diff = "=2.0.2"

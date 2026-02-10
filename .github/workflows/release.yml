@@ -14,7 +14,7 @@ on:
 
 jobs:
   release:
-    uses: semantic-release-action/rust/.github/workflows/release-binary.yml@v5
+    uses: semantic-release-action/rust/.github/workflows/release-binary.yml@df445fd33d5910e73d6b507106f5abd1475ea1f0 # v5
     with:
       disable-semantic-release-cargo: true
       targets: |
