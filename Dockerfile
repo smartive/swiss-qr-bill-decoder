@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 RUN cargo install --path cli
 
-FROM node:24-alpine@sha256:cd6fb7efa6490f039f3471a189214d5f548c11df1ff9e5b181aa49e22c14383e
+FROM node:24-alpine@sha256:4f696fbf39f383c1e486030ba6b289a5d9af541642fc78ab197e584a113b9c03
 COPY --from=build /usr/local/cargo/bin/swiss-qr-bill-decoder /usr/local/bin/swiss-qr-bill-decoder
 
 RUN chmod +x /usr/local/bin/swiss-qr-bill-decoder
