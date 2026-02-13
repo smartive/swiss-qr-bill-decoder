@@ -1,4 +1,4 @@
-FROM rust:1.93-alpine@sha256:69d7b9d9aeaf108a1419d9a7fcf7860dcc043e9dbd1ab7ce88e44228774d99e9 as build
+FROM rust:1.93-alpine@sha256:4fec02de605563c297c78a31064c8335bc004fa2b0bf406b1b99441da64e2d2d as build
 
 RUN apk add --update --no-cache musl-dev
 
