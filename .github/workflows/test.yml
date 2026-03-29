@@ -50,7 +50,7 @@ jobs:
         targets: "${{ matrix.platform.target }}"
 
     - name: Install cross
-      uses: taiki-e/install-action@1e67dedb5e3c590e1c9d9272ace46ef689da250d # v2
+      uses: taiki-e/install-action@fd0f63e180a477d7434580b6d80817978b9ff2b8 # v2
       if: matrix.platform.cross
       with:
         tool: cross
