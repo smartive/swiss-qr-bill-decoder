@@ -9,9 +9,9 @@ mod pdf_converter;
 mod qr_parser;
 
 use crate::models::qr_data::QRData;
+use image::imageops::FilterType;
 use image::DynamicImage;
 use image::GrayImage;
-use image::imageops::FilterType;
 use rayon::prelude::*;
 use rqrr::PreparedImage;
 use std::path::Path;

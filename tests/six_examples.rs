@@ -59,7 +59,7 @@ fn six_example_02() {
         "QRR".to_string(),
         Some("210000000003139471430009017".to_string()),
         Some("Order from 15.10.2020".to_string()),
-        Some("//S1/10/1234/11/201021/30/102673386/32/7.7/40/0:30".to_string())
+        Some("//S1/10/1234/11/201021/30/102673386/32/7.7/40/0:30".to_string()),
     )];
 
     assert_eq!(actual.len(), expected.len());
