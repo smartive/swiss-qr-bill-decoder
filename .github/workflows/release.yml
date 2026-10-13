@@ -26,3 +26,7 @@ jobs:
         x86_64-apple-darwin
         x86_64-unknown-linux-gnu
         x86_64-unknown-linux-musl
+    secrets:
+      # Placeholder: skips the action's crates.io trusted-publishing auth step,
+      # which needs id-token: write. We don't publish to crates.io.
+      cargo-registry-token: unused
