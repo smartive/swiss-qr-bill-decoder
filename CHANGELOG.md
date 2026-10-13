@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.3.0...v1.4.0) (2026-10-13)
+
+
+### Bug Fixes
+
+* **ci:** skip crates.io trusted-publishing auth in release workflow ([#209](https://github.com/smartive/swiss-qr-bill-decoder/issues/209)) ([bdb259f](https://github.com/smartive/swiss-qr-bill-decoder/commit/bdb259ffa7d41080eb0b9371c1997313ba6faf53))
+* **deps:** update rust crate rqrr to 0.11.0 ([#202](https://github.com/smartive/swiss-qr-bill-decoder/issues/202)) ([357d2a2](https://github.com/smartive/swiss-qr-bill-decoder/commit/357d2a2625b467d810bfe2c2193e4f8911e8d6e5))
+
+
+### Features
+
+* improve qr detection ([#176](https://github.com/smartive/swiss-qr-bill-decoder/issues/176)) ([b1c15a7](https://github.com/smartive/swiss-qr-bill-decoder/commit/b1c15a7c469f3f6f4ea7c36bde2c15dee44a2e8d))
+
 # [1.3.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.2.55...v1.3.0) (2025-10-31)
 
 
