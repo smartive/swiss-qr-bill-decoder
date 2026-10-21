@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.4.0...v1.4.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([#216](https://github.com/smartive/swiss-qr-bill-decoder/issues/216)) ([63c3040](https://github.com/smartive/swiss-qr-bill-decoder/commit/63c30404b7da60ddc8d93cdb4f04fb475faf2712))
+
 # [1.4.0](https://github.com/smartive/swiss-qr-bill-decoder/compare/v1.3.0...v1.4.0) (2026-10-13)
 
 
