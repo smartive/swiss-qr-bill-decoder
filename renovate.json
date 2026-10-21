@@ -1,10 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices",
-    "group:linters",
-    "group:monorepos",
-    ":automergeRequireAllStatusChecks",
+    "gitlab>smartive/renovate-config:application",
     ":automergeDisabled",
     ":automergeStableNonMajor"
   ]
